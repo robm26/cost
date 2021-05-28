@@ -110,7 +110,7 @@ public class Main {
 		switch (demo) {
 		case "index-lag":
 			// load the table
-			loadItems("data", counts.get("items"), null);
+			loadItems(table, counts.get("items"), null);
 
 			// scan the GSI until count matches numItems
 			scanTable(tpe.getMaximumPoolSize(), true);
@@ -137,7 +137,7 @@ public class Main {
 				drainQueue();
 
 				System.out.println();
-				clearAllTables("data");
+				clearAllTables(table);
 
 				// save items with PartiQL
 				partiql = true;
@@ -394,7 +394,7 @@ public class Main {
 					// add the PartiQL statements for batch execute
 					statement = "INSERT INTO %s VALUE {'PK' : '%s', 'SK' : '%s', 'type' : 'customer', 'email' : '%s'}";
 					statements.add(
-							new BatchStatementRequest().withStatement(String.format(statement, "data", pk, pk, email)));
+							new BatchStatementRequest().withStatement(String.format(statement, table, pk, pk, email)));
 					statements.add(new BatchStatementRequest()
 							.withStatement(String.format(statement, "Customers", pk, pk, email)));
 
@@ -422,7 +422,7 @@ public class Main {
 					// add the PartiQL statements for batch execute
 					statement = "INSERT INTO %s VALUE {'PK' : '%s', 'SK' : '%s', 'type' : 'order', 'date': '%s',  'amount' : '%d'}";
 					statements.add(new BatchStatementRequest()
-							.withStatement(String.format(statement, "data", pk, custId, timestamp, amount)));
+							.withStatement(String.format(statement, table, pk, custId, timestamp, amount)));
 					statements.add(new BatchStatementRequest()
 							.withStatement(String.format(statement, "Orders", pk, custId, timestamp, amount)));
 
@@ -453,7 +453,7 @@ public class Main {
 					// add PartiQL statements for batch execution
 					statement = "INSERT INTO %s VALUE {'PK' : '%s', 'SK' : '%s', 'type' : 'invoice', 'amount' : '%d', 'date' : '%s', 'GSI1PK' : '%s', 'GSI1SK' : '%s', 'GSI2PK' : '%s', 'GSI2SK' : '%s'}";
 					statements.add(new BatchStatementRequest().withStatement(
-							String.format(statement, "data", pk, sk, amount, timestamp, sk, sk, custId, timestamp)));
+							String.format(statement, table, pk, sk, amount, timestamp, sk, sk, custId, timestamp)));
 					statements.add(new BatchStatementRequest().withStatement(String.format(statement, "Invoices", pk,
 							sk, amount, timestamp, sk, sk, custId, timestamp)));
 					break;
@@ -481,7 +481,7 @@ public class Main {
 
 					// add PartiQL statements for batch execution
 					statement = "INSERT INTO %s VALUE {'PK' : '%s', 'SK' : '%s', 'type' : 'orderItem', 'price' : %d, 'qty' : %d, 'GSI1PK' : '%s', 'GSI1SK' : '%s', 'GSI2PK' : '%s', 'GSI2SK' : '%s'}";
-					statements.add(new BatchStatementRequest().withStatement(String.format(statement, "data", pk, sk,
+					statements.add(new BatchStatementRequest().withStatement(String.format(statement, table, pk, sk,
 							pItem.getInt("price"), qty, pk, timestamp, custId, timestamp)));
 					statements.add(new BatchStatementRequest().withStatement(String.format(statement, "OrderItems", pk,
 							sk, pItem.getInt("price"), qty, pk, timestamp, custId, timestamp)));
@@ -514,7 +514,7 @@ public class Main {
 					// add PartiQL statements for batch execution
 					statement = "INSERT INTO %s VALUE {'PK' : '%s', 'SK' : '%s', 'type' : 'shipment', 'method' : '%s', 'GSI1PK' : '%s', 'GSI1SK' : '%s', 'GSI2PK' : '%s', 'GSI2SK' : '%s'}";
 					statements.add(new BatchStatementRequest()
-							.withStatement(String.format(statement, "data", pk, sk, method, sk, sk, key, timestamp)));
+							.withStatement(String.format(statement, table, pk, sk, method, sk, sk, key, timestamp)));
 					statements.add(new BatchStatementRequest().withStatement(
 							String.format(statement, "Shipments", pk, sk, method, sk, sk, key, timestamp)));
 
@@ -537,7 +537,7 @@ public class Main {
 
 					// add PartiQL statements for batch execution
 					statement = "INSERT INTO %s VALUE {'PK' : '%s', 'SK' : '%s', 'type' : 'shipItem', 'qty' : %d, 'GSI1PK' : '%s', 'GSI1SK' : '%s', 'GSI2PK' : '%s', 'GSI2SK' : '%s'}";
-					statements.add(new BatchStatementRequest().withStatement(String.format(statement, "data", pk, sk,
+					statements.add(new BatchStatementRequest().withStatement(String.format(statement, table, pk, sk,
 							orderItem.getInt("qty"), params.get("shipmentId"), orderItem.getString("GSI1PK"), params.get("warehouse"), params.get("timestamp"))));
 					statements.add(new BatchStatementRequest().withStatement(String.format(statement, "ShipmentItems",
 							pk, sk, orderItem.getInt("qty"), params.get("shipmentId"), orderItem.getString("GSI1PK"), params.get("warehouse"), params.get("timestamp"))));
@@ -555,7 +555,7 @@ public class Main {
 					// add PartiQL statements for batch execution
 					statement = "INSERT INTO %s VALUE {'PK' : '%s', 'SK' : '%s', 'type' : 'warehouse', 'address' : %s}";
 					statements.add(new BatchStatementRequest().withStatement(
-							String.format(statement, "data", pk, pk, shipFrom.toString().replace("\"", "'"))));
+							String.format(statement, table, pk, pk, shipFrom.toString().replace("\"", "'"))));
 					statements.add(new BatchStatementRequest().withStatement(
 							String.format(statement, "Warehouses", pk, pk, shipFrom.toString().replace("\"", "'"))));
 					break;
@@ -581,7 +581,7 @@ public class Main {
 
 					// add PartiQL statements for batch execution
 					statement = "INSERT INTO %s VALUE {'PK' : '%s', 'SK' : '%s', 'type' : 'warehouseItem', 'qty' : %d, 'price' : %d, 'detail' : %s, 'GSI2PK' : '%s', 'GSI2SK' : '%s'}";
-					statements.add(new BatchStatementRequest().withStatement(String.format(statement, "data", pk, sk,
+					statements.add(new BatchStatementRequest().withStatement(String.format(statement, table, pk, sk,
 							item.getInt("qty"), item.getInt("price"), product.toString().replace("\"", "'"), sk, pk)));
 					statements.add(new BatchStatementRequest()
 							.withStatement(String.format(statement, "Products", pk, sk, item.getInt("qty"),
@@ -627,7 +627,7 @@ public class Main {
 			System.out.println(String.format("\nLoaded %d items in %dms.", statements.size(),
 					System.currentTimeMillis() - elapsed));
 		} else {
-			twi = new TableWriteItems("data");
+			twi = new TableWriteItems(table);
 			for (Item item : results.get(2)) {
 				saveItem(item);
 
