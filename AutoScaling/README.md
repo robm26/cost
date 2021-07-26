@@ -87,6 +87,9 @@ For scale-down, it will consider the latest 15 minutes of traffic before reducin
 The time to complete changes to capacity, after requested, could add additional couple 
 of minutes delay as well. 
 
+If you already are using Auto Scaling with a DynamoDB table, click to the Cloudwatch console and then
+click on [Alarms](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#alarmsV2:), to see the details of the Auto Scaling automation. 
+
 ![Auto Scaling Model](https://dynamodb-images.s3.amazonaws.com/img/AutoScalingModel.png)
 
 ## Steps
@@ -125,16 +128,21 @@ Provisioned Capacity with Auto Scaling.
 Adjust it anywhere between 1 and 1000 to see the affect on Auto Scaling.  It seems Auto Scaling 
 has a head start to scale up faster in an already busy table.  This may support the idea of 
 overloading all your record types and all external customers into one big table, so that the
-overall traffic pattern is more steady and less spiky.  With DynamoDB, excess capacity in one
+overall traffic pattern is more steady and less spiky.  With DynamoDB, any excess capacity in one
 part of the table flows to where it is needed the most.  
 
 
-1. Simulate a short but sudden spike in traffic.  Set the following:
-80,000 - 300,000 - 2 - 10 and set the Baseline WCU level in cell B24 to 20. You should
-see a chart as shown.  Check out the estimated costs in yellow in B33 and B34, which is greater?  
+1. Simulate a short but sudden spike in traffic.  Set the following model parameters in cells B9-B1: 
+80,000 - 300,000 - 2 - 10
+
+1. Set the Baseline WCU level in cell B24 to 20. You should
+see a chart as shown below. 
+
+1. Check out the estimated costs in yellow in B33 and B34, which is greater?  
 For very spiky workloads, On Demand may be less expensive than Provisioned Capacity 
 while reducing the risk of throttling.  On Demand effective scales back down to zero instantly
-while Auto Scaling may take 15 or even 60 minutes to scale down.
+while Auto Scaling may take 15 or even 60 minutes to scale down.  After scaling down 4 times in one hour, 
+subsequent scale down events are limited to once per hour for the remainder of the day.
 
 
 ![Auto Scaling Spike](https://dynamodb-images.s3.amazonaws.com/img/AutoScalingSpike.png)

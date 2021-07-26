@@ -2,7 +2,7 @@
 
 
 ## Intro
-Locating a record in a table by primary key is a core function of any database.  
+Locating a record in a table by primary key is a core function of any database. 
 The table maintains an index data structure that ensures uniqueness of items 
 and allows fast and efficient lookup of the item even for very large tables.
 
@@ -20,7 +20,7 @@ then ignore any non-matching items.
 item in the table to be read, at a much larger cost that is proportional to the size of the table.
 
 As an alternative, we might create a Global Secondary Index, or GSI, on the attribute 
-which would allow for much more efficient searches by the attribute.  
+which would allow for much more efficient searches by the attribute. 
 The drawback of a GSI is that it replicates changes to the base table, 
 so writes will be amplified and the total cost of writes could be doubled. 
 Developers new to DynamoDB often hear "avoid scans, use a GSI instead".
@@ -137,8 +137,8 @@ drop and re-create GSIs at any time, so we will create a GSI on the sparse CarsO
 
 Congratulations! You have solved the customer's requirement to generate a list of Car items
 and prices, and tuned the GSI to be sparse. The total monthly cost for the GSI and query is
-now just $1.27!  It is time to celebrate. Send a :thumbsup: emoji in the chat if you are doing
-this workshop at a live event.  👍
+now just $1.27!  It is time to celebrate. Send a :thumbsup:  emoji in the chat if you are doing
+this workshop at a live event to let us know you are done.  👍
 
 
 [Return Home](../README.md)
