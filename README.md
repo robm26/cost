@@ -59,8 +59,8 @@ The exercises use only Excel spreadsheets to simulate the impact of design decis
 
 ### Modules
 
-1. **Search strategies** - [Filter versus Global Secondary Index](./FilterOrGSI/README.md)
-2. **Capacity decisions** - [On Demand versus Provisioned with Auto Scaling](./AutoScaling/README.md)
+1. **Search Strategies** - [Filter versus Global Secondary Index](./FilterOrGSI/README.md)
+2. **Capacity Decisions** - [On Demand versus Provisioned with Auto Scaling](./AutoScaling/README.md)
 
 
 ### Extra Credit
