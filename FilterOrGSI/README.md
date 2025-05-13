@@ -53,7 +53,7 @@ You should see a cost model like this.  The green numbers in column C can be cha
 and the chart should automatically update. 
 
 
-![Excel Screenshot](https://dynamodb-images.s3.amazonaws.com/img/fgsi01.png)
+![Excel Screenshot](./filtergsi.png)
 
 ## Steps
 
@@ -137,8 +137,7 @@ drop and re-create GSIs at any time, so we will create a GSI on the sparse CarsO
 
 Congratulations! You have solved the customer's requirement to generate a list of Car items
 and prices, and tuned the GSI to be sparse. The total monthly cost for the GSI and query is
-now just $1.27!  It is time to celebrate. Send a :thumbsup:  emoji in the chat if you are doing
-this workshop at a live event to let us know you are done.  👍
+now just $0.66! 
 
 
 [Return Home](../README.md)

@@ -47,7 +47,7 @@ midnight, loads three million items at a rate of 1000 per second, and with an it
 of 2 KB.  This causes an extra 2000 WCU to be attempted by the batch job in the first 
 minute and lasting about 50 minutes.
 
-![Batch Job Traffic](https://dynamodb-images.s3.amazonaws.com/img/AutoScalingBatch700.png)
+![Batch Job Traffic](./auto.png)
 
 
 ### Solution 1 ? 
@@ -157,10 +157,7 @@ Read more details on Auto Scaling in this blog post:
 
 Plan to use Provisioned Capacity when you can invest some time to understand traffic patterns, 
 are comfortable changing capacity via the API.  Use Auto Scaling when your traffic is steady and preditcable, 
-or when you can slowly ramp up sudden batch or bulk loading jobs, or when you can schedule jobs to run in 
-a pre-defined window where capacity can be pre-provisioned.
+or when you can slowly ramp up sudden batch or bulk loading jobs, or when you can schedule jobs to run in a pre-defined window where capacity can be pre-provisioned.
 
-Send a :100: emoji in the chat if you are doing
-this workshop at a live event to let us know you are done.  💯
 
 [Return Home](../README.md)
