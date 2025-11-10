@@ -22,7 +22,7 @@ you can make will have a big impact on the performance and cost efficiency of th
 
 
 ## Designing for cost
-A common question heard from from customers is, "How much will it cost to run my application on DynamoDB?" 
+A common question heard from customers is, "How much will it cost to run my application on DynamoDB?" 
 Experience with managing a traditional SQL database does not always apply when making the move to DynamoDB. 
 Customers immediately recoup the costs of undifferentiated heavy lifting, such as the labor of 
 managing server instances 24x7, not to mention the task of sizing the CPUs, memory, 
